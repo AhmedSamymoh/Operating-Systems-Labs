@@ -1,7 +1,9 @@
 #include "PicoShell.h"
 
 
-
+/*******************************************************************************
+ * @brief Display user, host, and current directory information in a custom prompt format.
+ *******************************************************************************/
 void Info() {
     char user[1024];
     char host[1024];
@@ -32,6 +34,9 @@ void Info() {
     printf(Reset);
 }
 
+/*******************************************************************************
+ * @brief Display welcome message for PicoShell.
+ *******************************************************************************/
 void Entry(){
     printf("\n\n");
     printf(Blue);
@@ -40,6 +45,13 @@ void Entry(){
     printf("\n\n");
 }
 
+
+/*******************************************************************************
+ * @brief Tokenize the input string into arguments.
+ * 
+ * @param input The input string to be parsed.
+ * @param args The array to store parsed arguments.
+ *******************************************************************************/
 void parseInput(char *input, char **args) {
     // Tokenize the input string
     char *token = strtok(input, " ");
@@ -51,7 +63,12 @@ void parseInput(char *input, char **args) {
     args[i] = NULL;
 }
 
-
+/*******************************************************************************
+ * @brief Execute a command with or without background execution.
+ * 
+ * @param args The array of command arguments.
+ * @param background Flag indicating whether the command should be executed in the background.
+ *******************************************************************************/
 void executeCommand(char **args, int background) {
     /* Fork a child process */
     pid_t pid = fork();
@@ -77,7 +94,13 @@ void executeCommand(char **args, int background) {
     }
 }
 
-
+/*******************************************************************************
+ * @brief Main function of PicoShell.
+ * 
+ * @param argc Number of command-line arguments.
+ * @param argv Array of command-line arguments.
+ * @return Returns 0 on successful execution.
+ *******************************************************************************/
 int main(int argc, char **argv) {
     Entry();
 
@@ -138,6 +161,11 @@ int main(int argc, char **argv) {
 }
 
 
+/*******************************************************************************
+ * @brief Change directory - Buit in - command.
+ * 
+ * @param argv Array of command arguments.
+ *******************************************************************************/
 static void cdCommand(char *argv[]) {
     char *curDirection;
     char prevDirection[1024], direction[1024], tempDirection[1024];
@@ -161,6 +189,13 @@ static void cdCommand(char *argv[]) {
     memcpy(prevDirection, tempDirection, sizeof(tempDirection));
 }
 
+*******************************************************************************
+ * @brief Echo - Buit in - command.
+ * 
+ * @param argc Number of command-line arguments.
+ * @param argv Array of command arguments.
+ * @return Returns 0 on successful execution.
+ *******************************************************************************/
 static int echoCommand(unsigned long argc, char *argv[]) {
     unsigned char count = 1;
     int num_write = 0;
@@ -196,6 +231,11 @@ static int echoCommand(unsigned long argc, char *argv[]) {
     return 0;
 }
 
+/*******************************************************************************
+ * @brief Export variable - Buit in - command.
+ * 
+ * @param arg The argument to be exported.
+ *******************************************************************************/
 static void exportVariable(char *arg) {
     char *name = strtok(arg, "=");
     char *value = strtok(NULL, "=");
@@ -214,6 +254,9 @@ static void exportVariable(char *arg) {
     printf("Exported variable %s=%s\n", name, value);
 }
 
+/*******************************************************************************
+ * @brief Print current working directory.
+ *******************************************************************************/
 static void pwdCommand() {
     char* c_dir = getcwd(NULL, 0);
 
@@ -224,7 +267,11 @@ static void pwdCommand() {
         perror("getcwd");
     }
 }
-
+/*******************************************************************************
+ * @brief Handle child process exit.
+ * 
+ * @param signum Signal number.
+ *******************************************************************************/
 static void on_child_exit(int signum) {
     // Reap zombie processes
     while (waitpid(-1, NULL, WNOHANG) > 0);
