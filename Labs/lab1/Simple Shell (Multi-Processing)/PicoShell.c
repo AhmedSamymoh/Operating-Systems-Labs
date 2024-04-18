@@ -189,7 +189,7 @@ static void cdCommand(char *argv[]) {
     memcpy(prevDirection, tempDirection, sizeof(tempDirection));
 }
 
-*******************************************************************************
+/*******************************************************************************
  * @brief Echo - Buit in - command.
  * 
  * @param argc Number of command-line arguments.
