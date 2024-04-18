@@ -1,5 +1,5 @@
 # Operating-Systems-Labs
-Repository for Operating Systems labs at Alexandria University. Access lab materials and submiting solutions.
+Repository for [Operating-Systems-Labs](https://github.com/AhmedSamymoh/Operating-Systems-Labs)at Alexandria University. Access lab materials and submiting solutions.
 
 
 Navigate the Labs
