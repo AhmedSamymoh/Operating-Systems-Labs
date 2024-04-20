@@ -1,5 +1,5 @@
 # Operating-Systems-Labs
-Repository for [Operating-Systems-Labs](https://github.com/AhmedSamymoh/CSEx61-Operating-Systems) at Alexandria University. Access lab materials and submiting solutions.
+Repository for [CSEx61-Operating-Systems](https://github.com/AhmedSamymoh/CSEx61-Operating-Systems) at Alexandria University for **Submitting Solutions**.
 
 
 Navigate the Labs
